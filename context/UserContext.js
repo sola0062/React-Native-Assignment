@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UserContext = createContext();
 
@@ -14,17 +15,45 @@ function UserProvider(props) {
       }
 
       const data = await resp.json();
-      console.log(data.results);
 
       setUsers(data.results);
+
+      await AsyncStorage.setItem("users", JSON.stringify(data.results));
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  async function fetchOneUser() {
+    try {
+      const resp = await fetch("https://randomuser.me/api/?results=1");
+
+      if (!resp.ok) {
+        throw new Error(resp.statusText);
+      }
+
+      const data = await resp.json();
+      const newUser = data.results[0];
+
+      const updatedUsers = [newUser, ...users];
+
+      setUsers(updatedUsers);
+
+      await AsyncStorage.setItem("users", JSON.stringify(updatedUsers));
     } catch (err) {
       console.error(err.message);
     }
   }
   useEffect(() => {
-    fetchUsers();
+    AsyncStorage.getItem("users").then((list) => {
+      if (list === null) {
+        fetchUsers();
+      } else {
+        setUsers(JSON.parse(list));
+      }
+    });
   }, []);
-  return <UserContext.Provider value={[users, setUsers]} {...props} />;
+  return <UserContext.Provider value={[users, fetchOneUser]} {...props} />;
 }
 
 function useUsers() {

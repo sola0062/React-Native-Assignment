@@ -31,6 +31,23 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
   },
+
+  fab: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4CAF50",
+  },
+
+  fabText: {
+    fontSize: 32,
+    color: "#fff",
+  },
 });
 
 export default styles;

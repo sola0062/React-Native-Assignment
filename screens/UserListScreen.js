@@ -1,10 +1,10 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import { useUsers } from "../context/UserContext";
 import ListItem from "../components/ListItem";
 import styles from "../theme/styles";
 
 export default function UserListScreen() {
-  const [users] = useUsers();
+  const [users, fetchOneUser] = useUsers();
 
   return (
     <View style={styles.screen}>
@@ -15,6 +15,9 @@ export default function UserListScreen() {
         renderItem={ListItem}
         keyExtractor={(item) => item.login.uuid}
       />
+      <Pressable style={styles.fab} onPress={fetchOneUser}>
+        <Text style={styles.fabText}>+</Text>
+      </Pressable>
     </View>
   );
 }
