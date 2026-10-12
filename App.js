@@ -3,16 +3,19 @@ import { StyleSheet, Text, View } from "react-native";
 import { UserProvider } from "./context/UserContext";
 import UserListScreen from "./screens/UserListScreen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <UserProvider>
-        <View style={styles.container}>
-          <UserListScreen />
-          <StatusBar style="auto" />
-        </View>
-      </UserProvider>
+      <SafeAreaProvider>
+        <UserProvider>
+          <SafeAreaView style={styles.container}>
+            <UserListScreen />
+            <StatusBar style="auto" />
+          </SafeAreaView>
+        </UserProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

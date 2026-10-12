@@ -1,8 +1,9 @@
 import { View, Text, FlatList, Pressable, RefreshControl } from "react-native";
+
+import { useState } from "react";
 import { useUsers } from "../context/UserContext";
 import ListItem from "../components/ListItem";
 import styles from "../theme/styles";
-import { useState } from "react";
 
 export default function UserListScreen() {
   const [users, fetchOneUser, fetchUsers, deleteUser, clearUsers] = useUsers();
@@ -15,6 +16,7 @@ export default function UserListScreen() {
 
     setRefreshing(false);
   }
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -24,16 +26,19 @@ export default function UserListScreen() {
           <Text style={styles.clearText}>Clear</Text>
         </Pressable>
       </View>
+
       <FlatList
         data={users}
         renderItem={({ item }) => (
           <ListItem item={item} deleteUser={deleteUser} />
         )}
         keyExtractor={(item) => item.login.uuid}
+        ListEmptyComponent={<Text style={styles.emptyText}>No users</Text>}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
+
       <Pressable style={styles.fab} onPress={fetchOneUser}>
         <Text style={styles.fabText}>+</Text>
       </Pressable>

@@ -1,5 +1,16 @@
 import { StyleSheet, Platform } from "react-native";
 
+const colors = {
+  primary: "#315B7D",
+  background: "#F7F8FA",
+  surface: "#FFFFFF",
+  text: "#1F2933",
+  secondaryText: "#667085",
+  border: "#D9E0E7",
+  danger: "#C94A4A",
+  white: "#FFFFFF",
+};
+
 const dir = Platform.OS === "ios" ? "row-reverse" : "row";
 
 const styles = StyleSheet.create({
@@ -7,30 +18,28 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     paddingHorizontal: 16,
-    paddingTop: 60,
+    backgroundColor: colors.background,
   },
 
   listItem: {
     flexDirection: dir,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: colors.border,
+    backgroundColor: colors.surface,
   },
 
   nameContainer: {
     flex: 1,
+    paddingHorizontal: 14,
   },
 
   name: {
     fontSize: 18,
-  },
-
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    color: colors.text,
   },
 
   fab: {
@@ -42,23 +51,23 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#4CAF50",
+    backgroundColor: colors.primary,
   },
 
   fabText: {
     fontSize: 32,
-    color: "#fff",
+    color: colors.white,
   },
 
   deleteButton: {
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
-    backgroundColor: "red",
+    paddingHorizontal: 24,
+    backgroundColor: colors.danger,
   },
 
   deleteText: {
-    color: "white",
+    color: colors.white,
     fontWeight: "bold",
   },
 
@@ -67,21 +76,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: 16,
+
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: colors.border,
   },
 
   headerTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
+    color: colors.text,
   },
-
   clearText: {
     fontSize: 16,
     fontWeight: "bold",
-    marginRight: 70,
+    color: colors.primary,
+  },
+
+  emptyText: {
+    fontSize: 18,
+    color: colors.secondaryText,
+    textAlign: "center",
+    marginTop: 30,
   },
 });
 
 export default styles;
+export { colors };

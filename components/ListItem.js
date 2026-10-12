@@ -1,8 +1,11 @@
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import { Avatar } from "react-native-paper";
 import styles from "../theme/styles";
+import { useUsers } from "../context/UserContext";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 
-export default function ListItem({ item, deleteUser }) {
+export default function ListItem({ item }) {
+  const [, , , deleteUser] = useUsers();
   function renderRightActions() {
     return (
       <Pressable
@@ -16,7 +19,7 @@ export default function ListItem({ item, deleteUser }) {
   return (
     <ReanimatedSwipeable renderRightActions={renderRightActions}>
       <View style={styles.listItem}>
-        <Image source={{ uri: item.picture.thumbnail }} style={styles.avatar} />
+        <Avatar.Image size={60} source={{ uri: item.picture.thumbnail }} />
 
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{item.name.first}</Text>
