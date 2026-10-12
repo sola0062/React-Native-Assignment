@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     width: "100%",
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 60,
   },
 
   listItem: {
@@ -47,6 +48,39 @@ const styles = StyleSheet.create({
   fabText: {
     fontSize: 32,
     color: "#fff",
+  },
+
+  deleteButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    backgroundColor: "red",
+  },
+
+  deleteText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  header: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  clearText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginRight: 70,
   },
 });
 

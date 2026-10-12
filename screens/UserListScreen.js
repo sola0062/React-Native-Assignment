@@ -1,19 +1,38 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable, RefreshControl } from "react-native";
 import { useUsers } from "../context/UserContext";
 import ListItem from "../components/ListItem";
 import styles from "../theme/styles";
+import { useState } from "react";
 
 export default function UserListScreen() {
-  const [users, fetchOneUser] = useUsers();
+  const [users, fetchOneUser, fetchUsers, deleteUser, clearUsers] = useUsers();
+  const [refreshing, setRefreshing] = useState(false);
 
+  async function onRefresh() {
+    setRefreshing(true);
+
+    await fetchUsers();
+
+    setRefreshing(false);
+  }
   return (
     <View style={styles.screen}>
-      <Text>Welcome to the User List</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Welcome to the User List</Text>
 
+        <Pressable onPress={clearUsers}>
+          <Text style={styles.clearText}>Clear</Text>
+        </Pressable>
+      </View>
       <FlatList
         data={users}
-        renderItem={ListItem}
+        renderItem={({ item }) => (
+          <ListItem item={item} deleteUser={deleteUser} />
+        )}
         keyExtractor={(item) => item.login.uuid}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
       <Pressable style={styles.fab} onPress={fetchOneUser}>
         <Text style={styles.fabText}>+</Text>

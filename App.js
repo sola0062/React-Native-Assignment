@@ -2,15 +2,18 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { UserProvider } from "./context/UserContext";
 import UserListScreen from "./screens/UserListScreen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   return (
-    <UserProvider>
-      <View style={styles.container}>
-        <UserListScreen />
-        <StatusBar style="auto" />
-      </View>
-    </UserProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <UserProvider>
+        <View style={styles.container}>
+          <UserListScreen />
+          <StatusBar style="auto" />
+        </View>
+      </UserProvider>
+    </GestureHandlerRootView>
   );
 }
 

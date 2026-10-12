@@ -44,6 +44,21 @@ function UserProvider(props) {
       console.error(err.message);
     }
   }
+
+  async function deleteUser(userId) {
+    const updatedUsers = users.filter((user) => user.login.uuid !== userId);
+
+    setUsers(updatedUsers);
+
+    await AsyncStorage.setItem("users", JSON.stringify(updatedUsers));
+  }
+
+  async function clearUsers() {
+    setUsers([]);
+
+    await AsyncStorage.setItem("users", JSON.stringify([]));
+  }
+
   useEffect(() => {
     AsyncStorage.getItem("users").then((list) => {
       if (list === null) {
@@ -53,7 +68,13 @@ function UserProvider(props) {
       }
     });
   }, []);
-  return <UserContext.Provider value={[users, fetchOneUser]} {...props} />;
+
+  return (
+    <UserContext.Provider
+      value={[users, fetchOneUser, fetchUsers, deleteUser, clearUsers]}
+      {...props}
+    />
+  );
 }
 
 function useUsers() {
